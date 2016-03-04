@@ -1,4 +1,4 @@
-package com.benio.adapterdelegate;
+package com.benio.adapterdelegate.interf;
 
 import android.view.ViewGroup;
 

@@ -1,4 +1,4 @@
-package com.benio.adapterdelegate;
+package com.benio.adapterdelegate.interf;
 
 import android.support.v7.widget.RecyclerView;
 

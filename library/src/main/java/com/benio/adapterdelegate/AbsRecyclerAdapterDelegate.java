@@ -2,6 +2,9 @@ package com.benio.adapterdelegate;
 
 import android.support.v7.widget.RecyclerView;
 
+import com.benio.adapterdelegate.interf.DataProvider;
+import com.benio.adapterdelegate.interf.RecyclerAdapterDelegate;
+
 public abstract class AbsRecyclerAdapterDelegate<VH extends RecyclerView.ViewHolder>
         extends AbsAdapterDelegate<VH> implements RecyclerAdapterDelegate<VH> {
 

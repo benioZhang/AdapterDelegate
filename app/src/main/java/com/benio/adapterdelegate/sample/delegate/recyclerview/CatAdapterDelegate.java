@@ -1,4 +1,4 @@
-package com.benio.adapterdelegate.sample.delegate;
+package com.benio.adapterdelegate.sample.delegate.recyclerview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,9 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.benio.adapterdelegate.AbsRecyclerAdapterDelegate;
-import com.benio.adapterdelegate.DataProvider;
+import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.Cat;
+import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
 
 /**
  * Created by benio on 2016/3/2.

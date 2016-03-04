@@ -3,11 +3,10 @@ package com.benio.adapterdelegate.sample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ListView;
 
-import com.benio.adapterdelegate.sample.adapter.MainAdapter;
+import com.benio.adapterdelegate.sample.adapter.MainListAdapter;
 import com.benio.adapterdelegate.sample.model.Advertisement;
 import com.benio.adapterdelegate.sample.model.Cat;
 import com.benio.adapterdelegate.sample.model.DisplayableItem;
@@ -19,22 +18,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_list);
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        MainAdapter adapter = new MainAdapter(getAnimals());
-        rv.setAdapter(adapter);
+        ListView listView = (ListView) findViewById(R.id.listview);
+        MainListAdapter adapter = new MainListAdapter(getAnimals());
+        listView.setAdapter(adapter);
 
         findViewById(R.id.reptielsActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ReptilesActivity.class));
+                startActivity(new Intent(MainListActivity.this, ReptilesActivity.class));
             }
         });
     }

@@ -1,12 +1,13 @@
-package com.benio.adapterdelegate.sample.delegate;
+package com.benio.adapterdelegate.sample.delegate.recyclerview;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.benio.adapterdelegate.AbsRecyclerAdapterDelegate;
-import com.benio.adapterdelegate.DataProvider;
+import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
+import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
 
 /**
  * @author Hannes Dorfmann

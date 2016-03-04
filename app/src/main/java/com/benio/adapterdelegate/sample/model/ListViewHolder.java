@@ -1,18 +1,19 @@
-package com.benio.adapterdelegate.sample.delegate;
+package com.benio.adapterdelegate.sample.model;
 
 import android.support.annotation.IdRes;
 import android.support.v4.util.SparseArrayCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.benio.adapterdelegate.ViewHolder;
+
 /**
- * Created by benio on 2016/3/2.
+ * Created by benio on 2016/3/4.
  */
-public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+public class ListViewHolder extends ViewHolder {
 
     private SparseArrayCompat<View> mViews;
 
-    public RecyclerViewHolder(View itemView) {
+    public ListViewHolder(View itemView) {
         super(itemView);
         this.mViews = new SparseArrayCompat<>();
     }
@@ -26,4 +27,5 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         }
         return (T) view;
     }
+
 }

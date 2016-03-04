@@ -1,4 +1,4 @@
-package com.benio.adapterdelegate;
+package com.benio.adapterdelegate.interf;
 
 /**
  * Created by benio on 2016/1/27.

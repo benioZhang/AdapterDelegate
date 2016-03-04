@@ -1,6 +1,9 @@
 package com.benio.adapterdelegate;
 
 
+import com.benio.adapterdelegate.interf.AdapterDelegate;
+import com.benio.adapterdelegate.interf.DataProvider;
+
 public abstract class AbsAdapterDelegate<VH> implements AdapterDelegate<VH>, DataProvider {
     private int mViewType;
     private DataProvider mDataProvider;
