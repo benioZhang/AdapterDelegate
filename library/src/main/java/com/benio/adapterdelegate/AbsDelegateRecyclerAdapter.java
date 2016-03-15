@@ -4,26 +4,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.benio.adapterdelegate.interf.DataProvider;
-import com.benio.adapterdelegate.interf.AdapterDelegate;
+import com.benio.adapterdelegate.interf.Delegate;
 import com.benio.adapterdelegate.interf.DelegateManager;
 
 /**
+ * A {@link RecyclerView.Adapter} subclass using ViewHolder and DelegateManager.<p>
  * Created by benio on 2016/1/30.
  */
-public abstract class AbsDelegateRecyclerAdapter<VH extends RecyclerView.ViewHolder, AD extends AdapterDelegate<VH>>
+public abstract class AbsDelegateRecyclerAdapter<VH extends RecyclerView.ViewHolder, D extends Delegate<VH>>
         extends RecyclerView.Adapter<VH> implements DataProvider {
 
-    private final DelegateManager<VH, AD> mDelegateManager;
+    private final DelegateManager<VH, D> mDelegateManager;
 
-    protected AbsDelegateRecyclerAdapter(DelegateManager<VH, AD> manager) {
+    public AbsDelegateRecyclerAdapter() {
+        this(new AdapterDelegateManager<VH, D>());
+    }
+
+    protected AbsDelegateRecyclerAdapter(DelegateManager<VH, D> manager) {
         this.mDelegateManager = manager;
         if (null == mDelegateManager) {
-            throw new NullPointerException("AdapterDelegate manager is null");
+            throw new NullPointerException("Delegate manager is null");
         }
     }
 
     @SuppressWarnings("unchecked")
-    protected <T extends DelegateManager<VH, AD>> T getDelegateManager() {
+    protected <T extends DelegateManager<VH, D>> T getDelegateManager() {
         return (T) mDelegateManager;
     }
 

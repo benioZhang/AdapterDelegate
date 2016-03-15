@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.benio.adapterdelegate.AbsAdapterDelegate;
+import com.benio.adapterdelegate.AdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.ListViewHolder;
@@ -12,7 +12,7 @@ import com.benio.adapterdelegate.sample.model.ListViewHolder;
 /**
  * @author Hannes Dorfmann
  */
-public class ReptilesListFallbackDelegate extends AbsAdapterDelegate<ListViewHolder> {
+public class ReptilesListFallbackDelegate extends AdapterDelegate<ListViewHolder> {
 
     public ReptilesListFallbackDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);

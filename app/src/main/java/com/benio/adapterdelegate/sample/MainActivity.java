@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ReptilesActivity.class));
             }
         });
+
+
     }
 
     private List<DisplayableItem> getAnimals() {

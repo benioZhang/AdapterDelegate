@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.benio.adapterdelegate.AbsAdapterDelegate;
+import com.benio.adapterdelegate.AdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.Dog;
@@ -14,7 +14,7 @@ import com.benio.adapterdelegate.sample.model.ListViewHolder;
 /**
  * Created by benio on 2016/3/2.
  */
-public class DogListAdapterDelegate extends AbsAdapterDelegate<ListViewHolder> {
+public class DogListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
 
     public DogListAdapterDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);

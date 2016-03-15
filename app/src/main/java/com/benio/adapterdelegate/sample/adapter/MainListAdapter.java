@@ -1,8 +1,7 @@
 package com.benio.adapterdelegate.sample.adapter;
 
 import com.benio.adapterdelegate.AbsDelegateBaseAdapter;
-import com.benio.adapterdelegate.AdapterDelegateManager;
-import com.benio.adapterdelegate.interf.AdapterDelegate;
+import com.benio.adapterdelegate.interf.Delegate;
 import com.benio.adapterdelegate.sample.delegate.list.AdvertisementListAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.list.CatListAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.list.DogListAdapterDelegate;
@@ -16,11 +15,10 @@ import java.util.List;
 /**
  * Created by benio on 2016/3/2.
  */
-public class MainListAdapter extends AbsDelegateBaseAdapter<ListViewHolder, AdapterDelegate<ListViewHolder>> {
+public class MainListAdapter extends AbsDelegateBaseAdapter<ListViewHolder, Delegate<ListViewHolder>> {
     private List<DisplayableItem> mData;
 
     public MainListAdapter(List<DisplayableItem> data) {
-        super(new AdapterDelegateManager<ListViewHolder, AdapterDelegate<ListViewHolder>>());
         this.mData = data;
 
         // Delegates

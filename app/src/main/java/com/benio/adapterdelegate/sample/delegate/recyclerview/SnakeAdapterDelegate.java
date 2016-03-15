@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.benio.adapterdelegate.AbsRecyclerAdapterDelegate;
+import com.benio.adapterdelegate.RecyclerAdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
@@ -14,7 +14,7 @@ import com.benio.adapterdelegate.sample.model.Snake;
 /**
  * Created by benio on 2016/3/2.
  */
-public class SnakeAdapterDelegate extends AbsRecyclerAdapterDelegate<RecyclerViewHolder> {
+public class SnakeAdapterDelegate extends RecyclerAdapterDelegate<RecyclerViewHolder> {
 
     public SnakeAdapterDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);

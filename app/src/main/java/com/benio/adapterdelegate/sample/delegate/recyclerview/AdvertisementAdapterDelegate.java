@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.benio.adapterdelegate.AbsRecyclerAdapterDelegate;
+import com.benio.adapterdelegate.RecyclerAdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.Advertisement;
@@ -13,7 +13,7 @@ import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
 /**
  * Created by benio on 2016/3/2.
  */
-public class AdvertisementAdapterDelegate extends AbsRecyclerAdapterDelegate<RecyclerViewHolder> {
+public class AdvertisementAdapterDelegate extends RecyclerAdapterDelegate<RecyclerViewHolder> {
 
     public AdvertisementAdapterDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);

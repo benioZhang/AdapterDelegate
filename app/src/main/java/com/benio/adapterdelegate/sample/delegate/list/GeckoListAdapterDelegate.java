@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.benio.adapterdelegate.AbsAdapterDelegate;
+import com.benio.adapterdelegate.AdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.Gecko;
@@ -14,7 +14,7 @@ import com.benio.adapterdelegate.sample.model.ListViewHolder;
 /**
  * Created by benio on 2016/3/2.
  */
-public class GeckoListAdapterDelegate extends AbsAdapterDelegate<ListViewHolder> {
+public class GeckoListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
 
     public GeckoListAdapterDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);

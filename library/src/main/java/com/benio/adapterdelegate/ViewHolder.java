@@ -2,6 +2,9 @@ package com.benio.adapterdelegate;
 
 import android.view.View;
 
+/**
+ * ViewHolder for {@link AbsDelegateBaseAdapter}
+ */
 public class ViewHolder {
     public static final int NO_POSITION = -1;
     public static final long NO_ID = -1;
@@ -18,8 +21,9 @@ public class ViewHolder {
     }
 
     /**
-     * @return The the item's id if adapter has stable ids, {@link ViewHolder#NO_ID}
-     * otherwise
+     * Get the row id associated with the specified position.
+     *
+     * @return The id of the item at the specified position.
      */
     public final long getItemId() {
         return mItemId;

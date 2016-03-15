@@ -3,12 +3,20 @@ package com.benio.adapterdelegate;
 import android.support.v7.widget.RecyclerView;
 
 import com.benio.adapterdelegate.interf.DataProvider;
-import com.benio.adapterdelegate.interf.RecyclerAdapterDelegate;
+import com.benio.adapterdelegate.interf.RecyclerDelegate;
 
-public abstract class AbsRecyclerAdapterDelegate<VH extends RecyclerView.ViewHolder>
-        extends AbsAdapterDelegate<VH> implements RecyclerAdapterDelegate<VH> {
+/**
+ * A simple {@link RecyclerDelegate} implementation that already implements {@link
+ * #getItemViewType()}
+ * <p/>
+ * Created by benio on 2016/1/26.
+ *
+ * @param <VH> The type of the ViewHolder extends {@link RecyclerView.ViewHolder}
+ */
+public abstract class RecyclerAdapterDelegate<VH extends RecyclerView.ViewHolder>
+        extends AdapterDelegate<VH> implements RecyclerDelegate<VH> {
 
-    public AbsRecyclerAdapterDelegate(DataProvider dataProvider, int viewType) {
+    public RecyclerAdapterDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);
     }
 

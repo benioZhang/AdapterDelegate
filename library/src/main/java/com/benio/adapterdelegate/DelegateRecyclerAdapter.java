@@ -2,51 +2,58 @@ package com.benio.adapterdelegate;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.benio.adapterdelegate.interf.RecyclerAdapterDelegate;
+import com.benio.adapterdelegate.interf.RecyclerDelegate;
 import com.benio.adapterdelegate.interf.RecyclerDelegateManager;
 
 /**
+ * Enhanced {@link AbsDelegateRecyclerAdapter}
  * Created by benio on 2016/3/3.
  */
-public abstract class DelegateRecyclerAdapter<VH extends RecyclerView.ViewHolder, AD extends RecyclerAdapterDelegate<VH>>
-        extends AbsDelegateRecyclerAdapter<VH, AD> {
+public abstract class DelegateRecyclerAdapter<VH extends RecyclerView.ViewHolder, RD extends RecyclerDelegate<VH>>
+        extends AbsDelegateRecyclerAdapter<VH, RD> {
+    private final RecyclerDelegateManager<VH, RD> mManager;
 
-    protected DelegateRecyclerAdapter(RecyclerDelegateManager<VH, AD> manager) {
+    public DelegateRecyclerAdapter() {
+        this(new RecyclerAdapterDelegateManager<VH, RD>());
+    }
+
+    protected DelegateRecyclerAdapter(RecyclerDelegateManager<VH, RD> manager) {
         super(manager);
+        mManager = getDelegateManager();
     }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
-        ((RecyclerDelegateManager<VH, AD>) getDelegateManager()).onDetachedFromRecyclerView(recyclerView);
+        mManager.onDetachedFromRecyclerView(recyclerView);
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-        ((RecyclerDelegateManager<VH, AD>) getDelegateManager()).onAttachedToRecyclerView(recyclerView);
+        mManager.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
     public void onViewDetachedFromWindow(VH holder) {
         super.onViewDetachedFromWindow(holder);
-        ((RecyclerDelegateManager<VH, AD>) getDelegateManager()).onViewDetachedFromWindow(holder);
+        mManager.onViewDetachedFromWindow(holder);
     }
 
     @Override
     public void onViewAttachedToWindow(VH holder) {
         super.onViewAttachedToWindow(holder);
-        ((RecyclerDelegateManager<VH, AD>) getDelegateManager()).onViewAttachedToWindow(holder);
+        mManager.onViewAttachedToWindow(holder);
     }
 
     @Override
     public boolean onFailedToRecycleView(VH holder) {
-        return ((RecyclerDelegateManager<VH, AD>) getDelegateManager()).onFailedToRecycleView(holder);
+        return mManager.onFailedToRecycleView(holder);
     }
 
     @Override
     public void onViewRecycled(VH holder) {
         super.onViewRecycled(holder);
-        ((RecyclerDelegateManager<VH, AD>) getDelegateManager()).onViewRecycled(holder);
+        mManager.onViewRecycled(holder);
     }
 }

@@ -1,26 +1,24 @@
 package com.benio.adapterdelegate.sample.adapter;
 
 import com.benio.adapterdelegate.AbsDelegateRecyclerAdapter;
-import com.benio.adapterdelegate.RecyclerAdapterDelegateManager;
-import com.benio.adapterdelegate.interf.RecyclerAdapterDelegate;
+import com.benio.adapterdelegate.interf.RecyclerDelegate;
 import com.benio.adapterdelegate.sample.delegate.recyclerview.AdvertisementAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.recyclerview.CatAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.recyclerview.DogAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.recyclerview.GeckoAdapterDelegate;
-import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
 import com.benio.adapterdelegate.sample.delegate.recyclerview.SnakeAdapterDelegate;
 import com.benio.adapterdelegate.sample.model.DisplayableItem;
+import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
 
 import java.util.List;
 
 /**
  * Created by benio on 2016/3/2.
  */
-public class MainAdapter extends AbsDelegateRecyclerAdapter<RecyclerViewHolder, RecyclerAdapterDelegate<RecyclerViewHolder>> {
+public class MainAdapter extends AbsDelegateRecyclerAdapter<RecyclerViewHolder, RecyclerDelegate<RecyclerViewHolder>> {
     private List<DisplayableItem> mData;
 
     public MainAdapter(List<DisplayableItem> data) {
-        super(new RecyclerAdapterDelegateManager<RecyclerViewHolder, RecyclerAdapterDelegate<RecyclerViewHolder>>());
         this.mData = data;
 
         // Delegates

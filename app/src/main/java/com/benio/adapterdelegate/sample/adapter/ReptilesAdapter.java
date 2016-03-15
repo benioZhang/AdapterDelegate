@@ -1,7 +1,7 @@
 package com.benio.adapterdelegate.sample.adapter;
 
 import com.benio.adapterdelegate.AbsDelegateRecyclerAdapter;
-import com.benio.adapterdelegate.interf.RecyclerAdapterDelegate;
+import com.benio.adapterdelegate.interf.RecyclerDelegate;
 import com.benio.adapterdelegate.RecyclerAdapterDelegateManager;
 import com.benio.adapterdelegate.sample.delegate.recyclerview.GeckoAdapterDelegate;
 import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
@@ -14,13 +14,12 @@ import java.util.List;
 /**
  * Created by benio on 2016/3/2.
  */
-public class ReptilesAdapter extends AbsDelegateRecyclerAdapter<RecyclerViewHolder, RecyclerAdapterDelegate<RecyclerViewHolder>> {
+public class ReptilesAdapter extends AbsDelegateRecyclerAdapter<RecyclerViewHolder, RecyclerDelegate<RecyclerViewHolder>> {
     private List<DisplayableItem> mData;
 
     public ReptilesAdapter(List<DisplayableItem> data) {
-        super(new RecyclerAdapterDelegateManager<RecyclerViewHolder, RecyclerAdapterDelegate<RecyclerViewHolder>>());
         this.mData = data;
-        RecyclerAdapterDelegateManager<RecyclerViewHolder, RecyclerAdapterDelegate<RecyclerViewHolder>> manager = getDelegateManager();
+        RecyclerAdapterDelegateManager<RecyclerViewHolder, RecyclerDelegate<RecyclerViewHolder>> manager = getDelegateManager();
         // Delegates
         manager.addDelegate(new GeckoAdapterDelegate(this, 0));
         manager.addDelegate(new SnakeAdapterDelegate(this, 1));
