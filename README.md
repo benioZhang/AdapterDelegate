@@ -1,6 +1,9 @@
 # AdapterDelegate
 更好用的AdapterDelegate.For RecyclerView or ListView Adapter，原文[AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 
+# Gradle Dependency
+```compile 'com.benio.adapterdelegate:library:1.0.0'```
+
 ## 改良
 * 数据源与`DelegateManager`,`Delegate`分离,由`DataProvider`提供数据
 * 同时适用于RecyclerView，ListView，GridView等
@@ -126,14 +129,12 @@ public class MainListAdapter extends AbsDelegateBaseAdapter<ListViewHolder, Dele
     }
 }
 ```
-**注意，加入Delegate,Adapter的ViewHolder需要一样。**<br>
-可以参考[RecyclerViewHolder](https://github.com/benioZhang/AdapterDelegate/blob/master/app/src/main/java/com/benio/adapterdelegate/sample/model/RecyclerViewHolder.java)
+ViewHolder可以参考[RecyclerViewHolder](https://github.com/benioZhang/AdapterDelegate/blob/master/app/src/main/java/com/benio/adapterdelegate/sample/model/RecyclerViewHolder.java)
 [ListViewHolder](https://github.com/benioZhang/AdapterDelegate/blob/master/app/src/main/java/com/benio/adapterdelegate/sample/model/ListViewHolder.java)<br>
 ~~两处用法其实是一样的，换的只是Delegate泛型ViewHolder，还有Adapter的父类（毕竟Adapter是不一样的)<br>
 
-
 ## TODO
-* Gradle Dependency
+* ~~Gradle Dependency~~
 * 完善例子
 
 ## Thanks
