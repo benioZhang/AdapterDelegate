@@ -80,7 +80,7 @@ public class RecyclerAdapterDelegateManager<VH extends RecyclerView.ViewHolder, 
         if (fallback != null) {
             fallback.onAttachedToRecyclerView(recyclerView);
         }
-        int count = getDelegateCount();
+        int count = getDelegateCount(false);
         for (int i = 0; i < count; i++) {
             RecyclerDelegate<VH> delegate = getDelegateAt(i);
             delegate.onAttachedToRecyclerView(recyclerView);
@@ -93,7 +93,7 @@ public class RecyclerAdapterDelegateManager<VH extends RecyclerView.ViewHolder, 
         if (fallback != null) {
             fallback.onDetachedFromRecyclerView(recyclerView);
         }
-        int count = getDelegateCount();
+        int count = getDelegateCount(false);
         for (int i = 0; i < count; i++) {
             RecyclerDelegate<VH> delegate = getDelegateAt(i);
             delegate.onDetachedFromRecyclerView(recyclerView);

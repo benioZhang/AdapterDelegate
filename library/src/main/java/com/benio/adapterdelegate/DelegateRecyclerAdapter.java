@@ -19,7 +19,7 @@ public abstract class DelegateRecyclerAdapter<VH extends RecyclerView.ViewHolder
 
     protected DelegateRecyclerAdapter(RecyclerDelegateManager<VH, RD> manager) {
         super(manager);
-        mManager = getDelegateManager();
+        mManager = manager;
     }
 
     @Override

@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.benio.adapterdelegate.sample.adapter.MainAdapter;
+import com.benio.adapterdelegate.sample.adapter.MainListAdapter;
 import com.benio.adapterdelegate.sample.model.Advertisement;
 import com.benio.adapterdelegate.sample.model.Cat;
 import com.benio.adapterdelegate.sample.model.DisplayableItem;
@@ -20,25 +24,59 @@ import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    ViewGroup mParentViewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mParentViewGroup = (ViewGroup) findViewById(R.id.parentView);
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        setupRecyclerView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_list) {
+            setupListView();
+            return true;
+        } else if (id == R.id.action_recycler) {
+            setupRecyclerView();
+            return true;
+        } else if (id == R.id.action_reptiles) {
+            startActivity(new Intent(MainActivity.this, ReptilesActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupRecyclerView() {
+        setTitle("RecyclerView");
+        mParentViewGroup.removeAllViews();
+
+        final RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MainAdapter adapter = new MainAdapter(getAnimals());
-        rv.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
+        mParentViewGroup.addView(recyclerView);
+    }
 
-        findViewById(R.id.reptielsActivity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ReptilesActivity.class));
-            }
-        });
+    private void setupListView() {
+        setTitle("ListView");
+        mParentViewGroup.removeAllViews();
 
-
+        final ListView listView = new ListView(this);
+        MainListAdapter adapter = new MainListAdapter(getAnimals());
+        listView.setAdapter(adapter);
+        mParentViewGroup.addView(listView);
     }
 
     private List<DisplayableItem> getAnimals() {

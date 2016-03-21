@@ -1,34 +1,34 @@
 package com.benio.adapterdelegate.sample.delegate.recyclerview;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.benio.adapterdelegate.RecyclerAdapterDelegate;
+import com.benio.adapterdelegate.AdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.Dog;
-import com.benio.adapterdelegate.sample.model.RecyclerViewHolder;
 
 /**
  * Created by benio on 2016/3/2.
  */
-public class DogAdapterDelegate extends RecyclerAdapterDelegate<RecyclerViewHolder> {
+public class DogAdapterDelegate extends AdapterDelegate<RecyclerView.ViewHolder> {
 
     public DogAdapterDelegate(DataProvider dataProvider, int viewType) {
         super(dataProvider, viewType);
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dog, parent, false);
-        return new RecyclerViewHolder(itemView);
+        return new DogViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(int position, RecyclerViewHolder holder) {
-        TextView textView = holder.getView(R.id.name);
+    public void onBindViewHolder(int position, RecyclerView.ViewHolder holder) {
+        TextView textView = ((DogViewHolder) holder).name;
         Dog dog = (Dog) getItem(position);
         textView.setText(dog.getName());
     }
@@ -37,4 +37,15 @@ public class DogAdapterDelegate extends RecyclerAdapterDelegate<RecyclerViewHold
     public boolean isForViewType(int position) {
         return getItem(position) instanceof Dog;
     }
+
+    static class DogViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView name;
+
+        public DogViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.name);
+        }
+    }
+
 }

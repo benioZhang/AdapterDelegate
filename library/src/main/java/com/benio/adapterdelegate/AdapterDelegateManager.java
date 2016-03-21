@@ -57,12 +57,12 @@ public class AdapterDelegateManager<VH, D extends Delegate<VH>> implements Deleg
      */
     public List<D> getDelegates(boolean includeFallback) {
         List<D> result = new ArrayList<>();
-        int delegatesCount = getDelegateCount();
+        int delegatesCount = getDelegateCount(false);
         for (int i = 0; i < delegatesCount; i++) {
             D delegate = getDelegateAt(i);
             result.add(delegate);
         }
-        if (includeFallback) {
+        if (includeFallback && mFallbackDelegate != null) {
             result.add(mFallbackDelegate);
         }
         return Collections.unmodifiableList(result);
@@ -198,17 +198,17 @@ public class AdapterDelegateManager<VH, D extends Delegate<VH>> implements Deleg
     }
 
     /**
-     * @return number of delegate exclude fallback
+     * @return number of delegate include fallback
      */
     @Override
     public int getDelegateCount() {
-        return getDelegateCount(false);
+        return getDelegateCount(true);
     }
 
     @Override
     public int getItemViewType(int position) {
         //Internally scans all the registered Delegate and picks the right one to return the ViewType.
-        int delegatesCount = getDelegateCount();
+        int delegatesCount = getDelegateCount(false);
         for (int i = 0; i < delegatesCount; i++) {
             Delegate<VH> delegate = getDelegateAt(i);
             if (delegate.isForViewType(position)) {
@@ -254,8 +254,10 @@ public class AdapterDelegateManager<VH, D extends Delegate<VH>> implements Deleg
     }
 
     /**
-     * Set a fallback delegate that should be used if no {@link AdapterDelegate} has been found that
+     * Set a fallback delegate that should be used if no {@link Delegate} has been found that
      * can handle a certain view type.
+     * <br>
+     * As a fallback delegate,{@link Delegate#isForViewType(int)} will be ignored
      *
      * @param fallbackDelegate The Delegate that should be used as fallback if no other
      *                         Delegate has handled a certain view type. <code>null</code> you can set this to null if

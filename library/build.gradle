@@ -1,8 +1,13 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+// This is the library version used when deploying the artifact
+version = "1.0.0"
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+    resourcePrefix "AdapterDelegate"    //这个随便填
 
     defaultConfig {
         minSdkVersion 8
@@ -22,4 +27,115 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:23.0.1'
+}
+
+def siteUrl = 'https://github.com/benioZhang/AdapterDelegate' // 项目的主页
+def gitUrl = 'https://github.com/benioZhang/AdapterDelegate.git' // Git仓库的url
+group = "com.benio.adapterdelegate" // Maven Group ID for the artifact，一般填你唯一的包名
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'Android Adapter Delegate' //项目描述
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'BenioZhang'    //填写的一些基本信息
+                        name 'Benio'
+                        email 'beniozhang93@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+//android.libraryVariants.all { variant ->
+//    println variant.javaCompile.classpath.files
+//    if(variant.name == 'release') { //我们只需 release 的 javadoc
+//        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+//            // title = ''
+//            // description = ''
+//            source = variant.javaCompile.source
+//            classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath())
+//            options {
+//                encoding "UTF-8"
+//                links "http://docs.oracle.com/javase/7/docs/api/"
+//                linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+//            }
+//            exclude '**/BuildConfig.java'
+//            exclude '**/R.java'
+//        }
+//        task("javadoc${variant.name.capitalize()}Jar", type: Jar, dependsOn: "generate${variant.name.capitalize()}Javadoc") {
+//            classifier = 'javadoc'
+//            from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
+//        }
+//        artifacts {
+//            archives tasks.getByName("javadoc${variant.name.capitalize()}Jar")
+//        }
+//    }
+//}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+//添加UTF-8编码否则注释可能JAVADOC文档可能生成不了
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title "AdapterDelegate"
+    }
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "AdapterDelegate"    //发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
 }

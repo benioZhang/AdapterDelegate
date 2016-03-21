@@ -21,12 +21,13 @@ public class MainListAdapter extends AbsDelegateBaseAdapter<ListViewHolder, Dele
     public MainListAdapter(List<DisplayableItem> data) {
         this.mData = data;
 
-        // Delegates
+        // 这里要注意viewType必须连续，而且从0开始
+        // 这个限制是因为ListView的RecycleBin造成的
         getDelegateManager().addDelegate(new AdvertisementListAdapterDelegate(this, 1))
                 .addDelegate(new CatListAdapterDelegate(this, 2))
                 .addDelegate(new DogListAdapterDelegate(this, 3))
                 .addDelegate(new GeckoListAdapterDelegate(this, 4))
-                .addDelegate(new SnakeListAdapterDelegate(this, 5));
+                .addDelegate(new SnakeListAdapterDelegate(this, 0));
     }
 
     @Override
