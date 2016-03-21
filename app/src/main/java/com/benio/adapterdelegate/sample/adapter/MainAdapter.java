@@ -24,6 +24,7 @@ public class MainAdapter extends AbsDelegateRecyclerAdapter<RecyclerView.ViewHol
     public MainAdapter(List<DisplayableItem> data) {
         this.mData = data;
 
+        // 可以手动调用onViewAttachedToWindow，onViewDetachedFromWindow等方法
         mGeckoAdapterDelegate = new GeckoAdapterDelegate(this, 3);
         // Delegates
         getDelegateManager().addDelegate(new AdvertisementAdapterDelegate(this, 5))
@@ -44,19 +45,6 @@ public class MainAdapter extends AbsDelegateRecyclerAdapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        super.onViewRecycled(holder);
-        // hook adapter lifecycle
-        mGeckoAdapterDelegate.onViewRecycled(holder);
-    }
-
-    @Override
-    public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
-        mGeckoAdapterDelegate.onFailedToRecycleView(holder);
-        return super.onFailedToRecycleView(holder);
-    }
-
-    @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         mGeckoAdapterDelegate.onViewAttachedToWindow(holder);
         super.onViewAttachedToWindow(holder);
@@ -66,17 +54,5 @@ public class MainAdapter extends AbsDelegateRecyclerAdapter<RecyclerView.ViewHol
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
         mGeckoAdapterDelegate.onViewDetachedFromWindow(holder);
         super.onViewDetachedFromWindow(holder);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        mGeckoAdapterDelegate.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        mGeckoAdapterDelegate.onDetachedFromRecyclerView(recyclerView);
     }
 }
