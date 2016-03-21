@@ -2,7 +2,7 @@
 更好用的AdapterDelegate.For RecyclerView or ListView Adapter，原文[AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 
 ## Gradle Dependency
-```compile 'com.benio.adapterdelegate:library:1.0.0'```
+```compile 'com.benio.adapterdelegate:library:1.0.1'```
 
 ## 改良
 * 数据源与`DelegateManager`,`Delegate`分离,由`DataProvider`提供数据
