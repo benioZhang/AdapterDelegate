@@ -1,6 +1,5 @@
 package com.benio.adapterdelegate.sample;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_recycler) {
             setupRecyclerView();
-            return true;
-        } else if (id == R.id.action_reptiles) {
-            startActivity(new Intent(MainActivity.this, ReptilesActivity.class));
             return true;
         }
 

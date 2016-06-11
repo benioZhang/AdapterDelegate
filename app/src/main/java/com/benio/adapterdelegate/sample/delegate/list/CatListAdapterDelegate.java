@@ -15,9 +15,11 @@ import com.benio.adapterdelegate.sample.model.ListViewHolder;
  * Created by benio on 2016/3/2.
  */
 public class CatListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
+    public CatListAdapterDelegate() {
+    }
 
-    public CatListAdapterDelegate(DataProvider dataProvider, int viewType) {
-        super(dataProvider, viewType);
+    public CatListAdapterDelegate(DataProvider dataProvider) {
+        super(dataProvider);
     }
 
     @Override
@@ -34,7 +36,7 @@ public class CatListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
     }
 
     @Override
-    public boolean isForViewType(int position) {
+    public boolean isForPosition(int position) {
         return getItem(position) instanceof Cat;
     }
 }

@@ -1,16 +1,28 @@
 # AdapterDelegate
-更好用的AdapterDelegate.For RecyclerView or ListView Adapter，原文[AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
+Adapter多布局利器，同时适用于RecyclerView及ListView，GridView等AdapterView。项目思路来自[AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 
-## Gradle Dependency
-```compile 'com.benio.adapterdelegate:library:1.0.1'```
+### Dependency
+**Gradle**
+```
+compile 'com.benio.adapterdelegate:library:1.1.0
+```
+**Maven**
+```
+<dependency>
+    <groupId>com.benio.adapterdelegate</groupId>
+    <artifactId>library</artifactId>
+    <version>1.1.0</version>
+    <type>pom</type>
+</dependency>
+```
 
-## 改良
-* 数据源与`DelegateManager`,`Delegate`分离,由`DataProvider`提供数据
-* 同时适用于RecyclerView，ListView，GridView等
-* `Delegate`,`DelegateManager`等均为接口，可以自定义拓展
+### 特点
+* 数据源由DataProvider提供，与DelegateManager，Delegate分离
+* 同时适用于RecyclerView及ListView，GridView等AdapterView
+* Delegate，DelegateManager等均为接口，可以自定义拓展
 
-##Talk is cheap. Show me the code
-#### Using for RecyclerView
+### Talk is cheap. Show me the code
+**Using for RecyclerView**
 `Delegate` example
 ```Java
 public class CatAdapterDelegate extends AdapterDelegate<RecyclerView.ViewHolder> {

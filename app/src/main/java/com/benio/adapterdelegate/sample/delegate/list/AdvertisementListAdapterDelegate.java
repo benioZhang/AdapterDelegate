@@ -14,9 +14,11 @@ import com.benio.adapterdelegate.sample.model.ListViewHolder;
  * Created by benio on 2016/3/2.
  */
 public class AdvertisementListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
+    public AdvertisementListAdapterDelegate() {
+    }
 
-    public AdvertisementListAdapterDelegate(DataProvider dataProvider, int viewType) {
-        super(dataProvider, viewType);
+    public AdvertisementListAdapterDelegate(DataProvider dataProvider) {
+        super(dataProvider);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class AdvertisementListAdapterDelegate extends AdapterDelegate<ListViewHo
     }
 
     @Override
-    public boolean isForViewType(int position) {
+    public boolean isForPosition(int position) {
         return getItem(position) instanceof Advertisement;
     }
 }

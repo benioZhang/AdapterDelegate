@@ -1,7 +1,7 @@
 package com.benio.adapterdelegate.interf;
 
 /**
- * A delegate to provide data<p>
+ * An interface to provide data<p>
  * Created by benio on 2016/1/27.
  */
 public interface DataProvider {

@@ -1,7 +1,7 @@
 package com.benio.adapterdelegate.sample.adapter;
 
-import com.benio.adapterdelegate.AbsDelegateBaseAdapter;
-import com.benio.adapterdelegate.interf.Delegate;
+import com.benio.adapterdelegate.AdapterDelegateManager;
+import com.benio.adapterdelegate.DelegateBaseAdapter;
 import com.benio.adapterdelegate.sample.delegate.list.AdvertisementListAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.list.CatListAdapterDelegate;
 import com.benio.adapterdelegate.sample.delegate.list.DogListAdapterDelegate;
@@ -15,23 +15,23 @@ import java.util.List;
 /**
  * Created by benio on 2016/3/2.
  */
-public class MainListAdapter extends AbsDelegateBaseAdapter<ListViewHolder, Delegate<ListViewHolder>> {
+public class MainListAdapter extends DelegateBaseAdapter<ListViewHolder> {
     private List<DisplayableItem> mData;
 
     public MainListAdapter(List<DisplayableItem> data) {
         this.mData = data;
 
-        // 这里要注意viewType必须连续，而且从0开始
-        // 这个限制是因为ListView的RecycleBin造成的
-        getDelegateManager().addDelegate(new AdvertisementListAdapterDelegate(this, 1))
-                .addDelegate(new CatListAdapterDelegate(this, 2))
-                .addDelegate(new DogListAdapterDelegate(this, 3))
-                .addDelegate(new GeckoListAdapterDelegate(this, 4))
-                .addDelegate(new SnakeListAdapterDelegate(this, 0));
+        AdapterDelegateManager<ListViewHolder> manager = getDelegateManager();
+//        manager.setDataProvider(this);
+        manager.addDelegate(new AdvertisementListAdapterDelegate())
+                .addDelegate(new CatListAdapterDelegate())
+                .addDelegate(new DogListAdapterDelegate())
+                .addDelegate(new GeckoListAdapterDelegate())
+                .addDelegate(new SnakeListAdapterDelegate());
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return mData.size();
     }
 

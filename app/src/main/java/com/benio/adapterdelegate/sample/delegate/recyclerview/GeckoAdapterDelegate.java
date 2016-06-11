@@ -1,5 +1,6 @@
 package com.benio.adapterdelegate.sample.delegate.recyclerview;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.benio.adapterdelegate.RecyclerAdapterDelegate;
+import com.benio.adapterdelegate.AdapterDelegate;
 import com.benio.adapterdelegate.interf.DataProvider;
 import com.benio.adapterdelegate.sample.R;
 import com.benio.adapterdelegate.sample.model.Gecko;
@@ -15,13 +16,17 @@ import com.benio.adapterdelegate.sample.model.Gecko;
 /**
  * Created by benio on 2016/3/2.
  */
-public class GeckoAdapterDelegate extends RecyclerAdapterDelegate<RecyclerView.ViewHolder> {
+public class GeckoAdapterDelegate extends AdapterDelegate<RecyclerView.ViewHolder> {
     private static final String TAG = "GeckoAdapterDelegate";
 
-    public GeckoAdapterDelegate(DataProvider dataProvider, int viewType) {
-        super(dataProvider, viewType);
+    public GeckoAdapterDelegate() {
     }
 
+    public GeckoAdapterDelegate(DataProvider dataProvider) {
+        super(dataProvider);
+    }
+
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gecko, parent, false);
@@ -38,7 +43,7 @@ public class GeckoAdapterDelegate extends RecyclerAdapterDelegate<RecyclerView.V
     }
 
     @Override
-    public boolean isForViewType(int position) {
+    public boolean isForPosition(int position) {
         return getItem(position) instanceof Gecko;
     }
 
@@ -54,39 +59,11 @@ public class GeckoAdapterDelegate extends RecyclerAdapterDelegate<RecyclerView.V
         }
     }
 
-    @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        Log.d(TAG, "onViewAttachedToWindow: ");
+        Log.d(TAG, "attachViewToWindow: ");
     }
 
-    @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
-        Log.d(TAG, "onViewDetachedFromWindow: ");
-    }
-
-    @Override
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        super.onViewRecycled(holder);
-        Log.d(TAG, "onViewRecycled: ");
-    }
-
-    @Override
-    public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
-        Log.d(TAG, "onFailedToRecycleView: ");
-        return super.onFailedToRecycleView(holder);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        Log.d(TAG, "onAttachedToRecyclerView: ");
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        Log.d(TAG, "onDetachedFromRecyclerView: ");
+        Log.d(TAG, "detachViewFromWindow: ");
     }
 }

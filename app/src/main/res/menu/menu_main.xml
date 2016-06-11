@@ -7,8 +7,4 @@
     <item
         android:id="@+id/action_recycler"
         android:title="RecyclerView"/>
-
-    <item
-        android:id="@+id/action_reptiles"
-        android:title="Reptiles"/>
 </menu>

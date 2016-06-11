@@ -5,37 +5,49 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.benio.adapterdelegate.interf.DataProvider;
-import com.benio.adapterdelegate.interf.Delegate;
 import com.benio.adapterdelegate.interf.DelegateManager;
 
 /**
- * A {@link BaseAdapter} subclass using ViewHolder and DelegateManager.<p>
+ * A {@link BaseAdapter} subclass using {@link ViewHolder} and {@link DelegateManager}.<p>
  * Created by benio on 2016/3/3.
  */
-public abstract class AbsDelegateBaseAdapter<VH extends ViewHolder, D extends Delegate<VH>>
-        extends BaseAdapter implements DataProvider {
-    private final DelegateManager<VH, D> mDelegateManager;
+public abstract class DelegateBaseAdapter<VH extends ViewHolder> extends BaseAdapter
+        implements DataProvider {
 
-    public AbsDelegateBaseAdapter() {
-        this(new AdapterDelegateManager<VH, D>());
+    private final DelegateManager<VH> mDelegateManager;
+
+    public DelegateBaseAdapter() {
+        this(null);
     }
 
-    protected AbsDelegateBaseAdapter(DelegateManager<VH, D> manager) {
-        this.mDelegateManager = manager;
-        if (null == mDelegateManager) {
-            throw new NullPointerException("Delegate manager is null");
+    protected DelegateBaseAdapter(DelegateManager<VH> manager) {
+        if (manager == null) {
+            manager = new AdapterDelegateManager<>();
         }
+        if (manager instanceof AdapterDelegateManager
+                && (((AdapterDelegateManager) manager).getDataProvider()) == null) {
+            ((AdapterDelegateManager) manager).setDataProvider(this);
+        }
+        this.mDelegateManager = manager;
     }
 
+    /**
+     * @return DelegateManager using in this adapter.
+     */
     @SuppressWarnings("unchecked")
-    protected <T extends DelegateManager<VH, D>> T getDelegateManager() {
+    protected <T extends DelegateManager<VH>> T getDelegateManager() {
         return (T) mDelegateManager;
     }
 
     @Override
-    public final int getItemCount() {
-        // same as getCount()
-        return getCount();
+    public final int getCount() {
+        // same as getItemCount()
+        return getItemCount();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @SuppressWarnings("unchecked")
@@ -46,10 +58,11 @@ public abstract class AbsDelegateBaseAdapter<VH extends ViewHolder, D extends De
             holder = createViewHolder(parent, getItemViewType(position));
             // convert view set tag
             convertView = holder.itemView;
-            convertView.setTag(holder);
+            convertView.setTag(R.id.tag, holder);
         } else {
-            holder = (VH) convertView.getTag();
+            holder = (VH) convertView.getTag(R.id.tag);
         }
+
         bindViewHolder(holder, position);
         return holder.itemView;
     }
@@ -83,7 +96,7 @@ public abstract class AbsDelegateBaseAdapter<VH extends ViewHolder, D extends De
      * This new ViewHolder should be constructed with a new View that can represent the items
      * of the given type. You can either create a new View manually or inflate it from an XML
      * layout file.
-     * <p>
+     * <p/>
      * The new ViewHolder will be used to display items of the adapter using
      * {@link #onBindViewHolder(ViewHolder, int)}. Since it will be re-used to display
      * different items in the data set, it is a good idea to cache references to sub views of
@@ -94,25 +107,26 @@ public abstract class AbsDelegateBaseAdapter<VH extends ViewHolder, D extends De
      * @return A new ViewHolder that holds a View of the given view type.
      */
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return mDelegateManager.onCreateViewHolder(parent, viewType);
+        return mDelegateManager.createViewHolder(parent, viewType);
     }
 
     /**
      * Called to display the data at the specified position. This method should
      * update the contents of the ViewHolder to reflect the item at the given
      * position.
-     * <p/>
+     * <p>
      *
      * @param holder   The ViewHolder which should be updated to represent the contents of the
      *                 item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(VH holder, int position) {
-        mDelegateManager.onBindViewHolder(holder, position, holder.mItemViewType);
+        mDelegateManager.bindViewHolder(holder, position, holder.mItemViewType);
     }
 
     @Override
     public int getViewTypeCount() {
+        // same as Delegate count
         return mDelegateManager.getDelegateCount();
     }
 

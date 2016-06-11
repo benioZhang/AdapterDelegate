@@ -1,5 +1,6 @@
 package com.benio.adapterdelegate.sample.delegate.recyclerview;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,14 @@ import com.benio.adapterdelegate.sample.model.Dog;
  * Created by benio on 2016/3/2.
  */
 public class DogAdapterDelegate extends AdapterDelegate<RecyclerView.ViewHolder> {
-
-    public DogAdapterDelegate(DataProvider dataProvider, int viewType) {
-        super(dataProvider, viewType);
+    public DogAdapterDelegate() {
     }
 
+    public DogAdapterDelegate(DataProvider dataProvider) {
+        super(dataProvider);
+    }
+
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dog, parent, false);
@@ -34,7 +38,7 @@ public class DogAdapterDelegate extends AdapterDelegate<RecyclerView.ViewHolder>
     }
 
     @Override
-    public boolean isForViewType(int position) {
+    public boolean isForPosition(int position) {
         return getItem(position) instanceof Dog;
     }
 

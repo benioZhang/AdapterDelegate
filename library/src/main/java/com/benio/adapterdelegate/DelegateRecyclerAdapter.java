@@ -1,59 +1,57 @@
 package com.benio.adapterdelegate;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.Adapter;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.view.ViewGroup;
 
-import com.benio.adapterdelegate.interf.RecyclerDelegate;
-import com.benio.adapterdelegate.interf.RecyclerDelegateManager;
+import com.benio.adapterdelegate.interf.DataProvider;
+import com.benio.adapterdelegate.interf.DelegateManager;
 
 /**
- * Enhanced {@link AbsDelegateRecyclerAdapter}
- * Created by benio on 2016/3/3.
+ * A {@link RecyclerView.Adapter} subclass using ViewHolder and DelegateManager.<p>
+ * Created by benio on 2016/1/30.
  */
-public abstract class DelegateRecyclerAdapter<VH extends RecyclerView.ViewHolder, RD extends RecyclerDelegate<VH>>
-        extends AbsDelegateRecyclerAdapter<VH, RD> {
-    private final RecyclerDelegateManager<VH, RD> mManager;
+public abstract class DelegateRecyclerAdapter<VH extends ViewHolder> extends Adapter<VH>
+        implements DataProvider {
+
+    private final DelegateManager<VH> mDelegateManager;
 
     public DelegateRecyclerAdapter() {
-        this(new RecyclerAdapterDelegateManager<VH, RD>());
+        this(null);
     }
 
-    protected DelegateRecyclerAdapter(RecyclerDelegateManager<VH, RD> manager) {
-        super(manager);
-        mManager = manager;
+    protected DelegateRecyclerAdapter(DelegateManager<VH> manager) {
+        if (manager == null) {
+            manager = new AdapterDelegateManager<>();
+        }
+        if (manager instanceof AdapterDelegateManager
+                && (((AdapterDelegateManager) manager).getDataProvider()) == null) {
+            ((AdapterDelegateManager) manager).setDataProvider(this);
+        }
+        this.mDelegateManager = manager;
     }
 
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        mManager.onDetachedFromRecyclerView(recyclerView);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        mManager.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(VH holder) {
-        super.onViewDetachedFromWindow(holder);
-        mManager.onViewDetachedFromWindow(holder);
+    /**
+     * @return DelegateManager using in this adapter.
+     */
+    @SuppressWarnings("unchecked")
+    protected <T extends DelegateManager<VH>> T getDelegateManager() {
+        return (T) mDelegateManager;
     }
 
     @Override
-    public void onViewAttachedToWindow(VH holder) {
-        super.onViewAttachedToWindow(holder);
-        mManager.onViewAttachedToWindow(holder);
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+        return mDelegateManager.createViewHolder(parent, viewType);
     }
 
     @Override
-    public boolean onFailedToRecycleView(VH holder) {
-        return mManager.onFailedToRecycleView(holder);
+    public void onBindViewHolder(VH holder, int position) {
+        mDelegateManager.bindViewHolder(holder, position, holder.getItemViewType());
     }
 
     @Override
-    public void onViewRecycled(VH holder) {
-        super.onViewRecycled(holder);
-        mManager.onViewRecycled(holder);
+    public int getItemViewType(int position) {
+        return mDelegateManager.getItemViewType(position);
     }
 }

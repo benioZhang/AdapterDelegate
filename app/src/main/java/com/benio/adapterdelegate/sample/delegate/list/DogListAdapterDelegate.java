@@ -15,9 +15,11 @@ import com.benio.adapterdelegate.sample.model.ListViewHolder;
  * Created by benio on 2016/3/2.
  */
 public class DogListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
+    public DogListAdapterDelegate() {
+    }
 
-    public DogListAdapterDelegate(DataProvider dataProvider, int viewType) {
-        super(dataProvider, viewType);
+    public DogListAdapterDelegate(DataProvider dataProvider) {
+        super(dataProvider);
     }
 
     @Override
@@ -34,7 +36,7 @@ public class DogListAdapterDelegate extends AdapterDelegate<ListViewHolder> {
     }
 
     @Override
-    public boolean isForViewType(int position) {
+    public boolean isForPosition(int position) {
         return getItem(position) instanceof Dog;
     }
 }

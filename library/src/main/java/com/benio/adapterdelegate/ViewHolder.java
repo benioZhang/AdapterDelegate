@@ -3,7 +3,7 @@ package com.benio.adapterdelegate;
 import android.view.View;
 
 /**
- * ViewHolder for {@link AbsDelegateBaseAdapter}
+ * ViewHolder for {@link DelegateBaseAdapter}
  */
 public class ViewHolder {
     public static final int NO_POSITION = -1;
