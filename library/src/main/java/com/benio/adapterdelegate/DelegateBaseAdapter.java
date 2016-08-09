@@ -96,7 +96,7 @@ public abstract class DelegateBaseAdapter<VH extends ViewHolder> extends BaseAda
      * This new ViewHolder should be constructed with a new View that can represent the items
      * of the given type. You can either create a new View manually or inflate it from an XML
      * layout file.
-     * <p/>
+     * <p>
      * The new ViewHolder will be used to display items of the adapter using
      * {@link #onBindViewHolder(ViewHolder, int)}. Since it will be re-used to display
      * different items in the data set, it is a good idea to cache references to sub views of
@@ -132,6 +132,11 @@ public abstract class DelegateBaseAdapter<VH extends ViewHolder> extends BaseAda
 
     @Override
     public int getItemViewType(int position) {
-        return mDelegateManager.getItemViewType(position);
+        int viewType = mDelegateManager.getItemViewType(position);
+        if (viewType == DelegateManager.INVALID_TYPE) {
+            throw new IllegalArgumentException("No Delegate is responsible for position =" + position
+                    + ". Please check your Delegates");
+        }
+        return viewType;
     }
 }

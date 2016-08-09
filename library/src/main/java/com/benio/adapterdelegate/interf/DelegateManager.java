@@ -11,12 +11,16 @@ import java.util.List;
  * <li> {@link #createViewHolder(ViewGroup, int)}
  * <li> {@link #getItemViewType(int)}
  * </ul>
- * <p/>
+ * <p>
  * Created by benio on 2016/2/12.
  *
  * @param <VH> Type of the ViewHolder
  */
 public interface DelegateManager<VH> {
+    /**
+     * invalid view type
+     */
+    public static final int INVALID_TYPE = -1;
 
     /**
      * Adds a Delegate to this manager
@@ -56,11 +60,11 @@ public interface DelegateManager<VH> {
 
     /**
      * Called when a new ViewHolder of the given type to represent an item is needed.
-     * <p/>
+     * <p>
      * This new ViewHolder should be constructed with a new View that can represent the items
      * of the given type. You can either create a new View manually or inflate it from an XML
      * layout file.
-     * <p/>
+     * <p>
      * The new ViewHolder will be used to display items of the adapter using
      * {@link #bindViewHolder(VH, int, int)}. Since it will be re-used to display
      * different items in the data set, it is a good idea to cache references to sub views of

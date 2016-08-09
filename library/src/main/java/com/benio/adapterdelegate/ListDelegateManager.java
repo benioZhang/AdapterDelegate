@@ -110,7 +110,7 @@ public class ListDelegateManager<VH> implements DelegateManager<VH> {
                 return i;
             }
         }
-        return -1;
+        return INVALID_TYPE;
     }
 
     @Override

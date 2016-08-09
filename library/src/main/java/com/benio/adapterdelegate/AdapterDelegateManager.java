@@ -16,6 +16,13 @@ public class AdapterDelegateManager<VH> extends ListDelegateManager<VH> {
      */
     private DataProvider mDataProvider;
 
+    public AdapterDelegateManager() {
+    }
+
+    public AdapterDelegateManager(int initialCapacity) {
+        super(initialCapacity);
+    }
+
     public void setDataProvider(DataProvider dataProvider) {
         mDataProvider = dataProvider;
     }

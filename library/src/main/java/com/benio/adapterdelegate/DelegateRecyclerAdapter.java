@@ -52,6 +52,11 @@ public abstract class DelegateRecyclerAdapter<VH extends ViewHolder> extends Ada
 
     @Override
     public int getItemViewType(int position) {
-        return mDelegateManager.getItemViewType(position);
+        int viewType = mDelegateManager.getItemViewType(position);
+        if (viewType == DelegateManager.INVALID_TYPE) {
+            throw new IllegalArgumentException("No Delegate is responsible for position =" + position
+                    + ". Please check your Delegates");
+        }
+        return viewType;
     }
 }

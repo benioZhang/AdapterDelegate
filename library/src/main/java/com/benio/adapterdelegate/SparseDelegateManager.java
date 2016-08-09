@@ -124,7 +124,7 @@ public class SparseDelegateManager<VH> implements DelegateManager<VH> {
                 return mDelegates.keyAt(i);
             }
         }
-        return -1;
+        return INVALID_TYPE;
     }
 
     @Override
