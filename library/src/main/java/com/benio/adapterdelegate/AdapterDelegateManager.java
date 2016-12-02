@@ -23,7 +23,12 @@ public class AdapterDelegateManager<VH> extends ListDelegateManager<VH> {
         super(initialCapacity);
     }
 
-    public void setDataProvider(DataProvider dataProvider) {
+    public AdapterDelegateManager(int initialCapacity, DataProvider dataProvider) {
+        super(initialCapacity);
+        mDataProvider = dataProvider;
+    }
+
+    public AdapterDelegateManager(DataProvider dataProvider) {
         mDataProvider = dataProvider;
     }
 
@@ -35,8 +40,8 @@ public class AdapterDelegateManager<VH> extends ListDelegateManager<VH> {
     public void onDelegateAdded(Delegate<VH> delegate) {
         if (mDataProvider != null
                 && delegate instanceof AdapterDelegate
-                && (((AdapterDelegate<VH>) delegate).getDataProvider()) == null) {
-            ((AdapterDelegate<VH>) delegate).setDataProvider(mDataProvider);
+                && (((AdapterDelegate<VH>) delegate).mDataProvider) == null) {
+            ((AdapterDelegate<VH>) delegate).mDataProvider = mDataProvider;
         }
     }
 
@@ -44,8 +49,8 @@ public class AdapterDelegateManager<VH> extends ListDelegateManager<VH> {
     public void onDelegateRemoved(Delegate<VH> delegate) {
         if (mDataProvider != null
                 && delegate instanceof AdapterDelegate
-                && (((AdapterDelegate<VH>) delegate).getDataProvider()) == mDataProvider) {
-            ((AdapterDelegate<VH>) delegate).setDataProvider(null);
+                && (((AdapterDelegate<VH>) delegate).mDataProvider) == mDataProvider) {
+            ((AdapterDelegate<VH>) delegate).mDataProvider = null;
         }
     }
 }

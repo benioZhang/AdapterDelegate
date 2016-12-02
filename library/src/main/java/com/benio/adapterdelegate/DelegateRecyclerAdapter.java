@@ -21,15 +21,15 @@ public abstract class DelegateRecyclerAdapter<VH extends ViewHolder> extends Ada
         this(null);
     }
 
-    protected DelegateRecyclerAdapter(DelegateManager<VH> manager) {
+    public DelegateRecyclerAdapter(DelegateManager<VH> manager) {
         if (manager == null) {
-            manager = new AdapterDelegateManager<>();
-        }
-        if (manager instanceof AdapterDelegateManager
-                && (((AdapterDelegateManager) manager).getDataProvider()) == null) {
-            ((AdapterDelegateManager) manager).setDataProvider(this);
+            manager = generateDefaultDelegateManager();
         }
         this.mDelegateManager = manager;
+    }
+
+    protected DelegateManager<VH> generateDefaultDelegateManager() {
+        return new AdapterDelegateManager<>(this);
     }
 
     /**

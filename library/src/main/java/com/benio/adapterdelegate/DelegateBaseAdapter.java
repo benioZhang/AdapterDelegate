@@ -18,15 +18,15 @@ public abstract class DelegateBaseAdapter<VH extends ViewHolder> extends ViewHol
         this(null);
     }
 
-    protected DelegateBaseAdapter(DelegateManager<VH> manager) {
+    public DelegateBaseAdapter(DelegateManager<VH> manager) {
         if (manager == null) {
-            manager = new AdapterDelegateManager<>();
-        }
-        if (manager instanceof AdapterDelegateManager
-                && (((AdapterDelegateManager) manager).getDataProvider()) == null) {
-            ((AdapterDelegateManager) manager).setDataProvider(this);
+            manager = generateDefaultDelegateManager();
         }
         this.mDelegateManager = manager;
+    }
+
+    protected DelegateManager<VH> generateDefaultDelegateManager() {
+        return new AdapterDelegateManager<>(this);
     }
 
     /**

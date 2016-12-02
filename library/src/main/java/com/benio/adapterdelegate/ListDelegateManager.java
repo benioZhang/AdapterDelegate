@@ -47,13 +47,14 @@ public class ListDelegateManager<VH> implements DelegateManager<VH> {
         mDelegates = new ArrayList<>(initialCapacity);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public ListDelegateManager<VH> addDelegate(Delegate<VH> delegate) {
+    public ListDelegateManager<VH> addDelegate(Delegate<? extends VH> delegate) {
         delegate = Utils.checkNotNull(delegate, "Delegate is null");
         // if not found
-        if (!mDelegates.contains(delegate)) {
-            mDelegates.add(delegate);
-            dispatchDelegateAdded(delegate);
+        if (!mDelegates.contains((Delegate<VH>) delegate)) {
+            mDelegates.add((Delegate<VH>) delegate);
+            dispatchDelegateAdded((Delegate<VH>) delegate);
         }
         return this;
     }
@@ -68,11 +69,12 @@ public class ListDelegateManager<VH> implements DelegateManager<VH> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public ListDelegateManager<VH> removeDelegate(Delegate<VH> delegate) {
+    public ListDelegateManager<VH> removeDelegate(Delegate<? extends VH> delegate) {
         delegate = Utils.checkNotNull(delegate, "Delegate is null");
-        if (mDelegates.remove(delegate)) {
-            dispatchDelegateRemoved(delegate);
+        if (mDelegates.remove((Delegate<VH>) delegate)) {
+            dispatchDelegateRemoved((Delegate<VH>) delegate);
         }
         return this;
     }

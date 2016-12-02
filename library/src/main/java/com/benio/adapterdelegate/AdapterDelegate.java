@@ -12,17 +12,13 @@ import com.benio.adapterdelegate.interf.Delegate;
  */
 public abstract class AdapterDelegate<VH> implements Delegate<VH>, DataProvider {
 
-    private DataProvider mDataProvider;
+    DataProvider mDataProvider;
 
     public AdapterDelegate() {
     }
 
     public AdapterDelegate(DataProvider dataProvider) {
         this.mDataProvider = dataProvider;
-    }
-
-    public void setDataProvider(DataProvider provider) {
-        this.mDataProvider = provider;
     }
 
     public DataProvider getDataProvider() {

@@ -28,7 +28,7 @@ public interface DelegateManager<VH> {
      * @param delegate Delegate to add
      * @return self
      */
-    DelegateManager<VH> addDelegate(Delegate<VH> delegate);
+    DelegateManager<VH> addDelegate(Delegate<? extends VH> delegate);
 
     /**
      * Removes the Delegate in this manager.
@@ -36,7 +36,7 @@ public interface DelegateManager<VH> {
      * @param delegate Delegate to remove
      * @return self
      */
-    DelegateManager<VH> removeDelegate(Delegate<VH> delegate);
+    DelegateManager<VH> removeDelegate(Delegate<? extends VH> delegate);
 
     /**
      * @return a List of Delegate.
