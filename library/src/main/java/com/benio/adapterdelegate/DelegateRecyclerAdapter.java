@@ -16,6 +16,7 @@ public abstract class DelegateRecyclerAdapter<VH extends ViewHolder> extends Ada
         implements DataProvider {
 
     private final DelegateManager<VH> mDelegateManager;
+    private ViewTypePool mViewTypePool;
 
     public DelegateRecyclerAdapter() {
         this(null);
@@ -52,11 +53,38 @@ public abstract class DelegateRecyclerAdapter<VH extends ViewHolder> extends Ada
 
     @Override
     public int getItemViewType(int position) {
-        int viewType = mDelegateManager.getItemViewType(position);
+        int viewType;
+        if (mViewTypePool != null) {
+            viewType = mViewTypePool.get(position);
+            if (viewType == ViewTypePool.NO_CACHE) {
+                viewType = mDelegateManager.getItemViewType(position);
+                mViewTypePool.put(position, viewType);
+            }
+        } else {
+            viewType = mDelegateManager.getItemViewType(position);
+        }
+
         if (viewType == DelegateManager.INVALID_TYPE) {
             throw new IllegalArgumentException("No Delegate is responsible for position =" + position
                     + ". Please check your Delegates");
         }
         return viewType;
+    }
+
+    public ViewTypePool getViewTypePool() {
+        return mViewTypePool;
+    }
+
+    public void setViewTypePool(ViewTypePool pool) {
+        if (mViewTypePool == pool) {
+            return; // nothing to do
+        }
+        if (mViewTypePool != null) {
+            mViewTypePool.detachFromAdapter();
+        }
+        mViewTypePool = pool;
+        if (pool != null) {
+            pool.attachToAdapter(this);
+        }
     }
 }
